@@ -1,0 +1,63 @@
+//Main class
+
+public class LoginTestcase {
+    public static void main(String args[]) {
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\CODOID\\Downloads\\chromedriver_win32\\chromedriver.exe");
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.amazon.com/");
+
+
+        /* Using create object for class
+        driver.findElement(By.xpath("//span[text()='Account & Lists']")).click();
+        driver.findElement(By.id("continue")).click();
+        LoginPageObject loginPageObjects = new LoginPageObject();
+        loginPageObjects.userName(driver).sendKeys("8870360359");
+        loginPageObjects.Password().senKeys("AmmaAppa1234");
+        loginPageObjects.loginButton().click();*/
+
+        //Using Page Factory
+
+        PageFactory.initElements(driver, LoginPageObject.class);
+        LoginPageObject.Signin.click();
+        LoginPageObject.userName.sendKeys("8870360359");
+        LoginPageObject.Continue.click();
+        LoginPageObject.Password.sendKeys("AmmaAppa1234");
+        LoginPageObject.loginButton.click();
+
+
+
+        /* Using Page object model
+        LoginPageObject.userName(driver).sendKeys("8870360359");
+        LoginPageObject.Password(driver).sendKeys("AmmaAppa1234");
+        LoginPageObject.loginButton(driver).click();*/
+    }
+}
+
+//Login scenario
+public class LoginPageObject {
+    @FindBy(how = How.XPATH,using ="//span[text()='Account & Lists']")
+    public static WebElement Signin;
+
+    @FindBy(how = How.XPATH,using = "//input[@type='email']")
+    public static WebElement userName;
+    @FindBy(how = How.XPATH,using = "//input[@type='password']")
+    public static WebElement Password;
+    @FindBy(id = "signInSubmit")
+    public static WebElement loginButton;
+    @FindBy(id = "continue")
+    public static WebElement Continue;
+    //username, password, submit btn
+    /*public static WebElement userName(WebDriver driver)
+    {
+        return driver.findElement(By.xpath("//input[@type='email']"));
+    }
+    public static WebElement Password(WebDriver driver)
+    {
+        return driver.findElement(By.xpath("//input[@type='password']"));
+    }
+    public static WebElement loginButton(WebDriver driver)
+    {
+        return driver.findElement(By.id("signInSubmit"));
+    }*/
+}
