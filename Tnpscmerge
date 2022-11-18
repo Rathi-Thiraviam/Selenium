@@ -108,19 +108,7 @@ public class TnpscTestcase
         this.driver=driver;
     }
      static void excecute() throws InterruptedException {
-
-         //driver=InitiationClass.driver;
-        //InitiationClass.run();
          System.out.println(driver);
-
-
-         List<WebElement> list = driver.findElements(By.className("notice"));
-         System.out.println(list.size());
-         for (WebElement webElement : list)
-         {
-             String name = webElement.getText();
-             System.out.println(name);
-         }
          TnpscTestObject.Mainclick(driver).click();
 
         Alert alert = driver.switchTo().alert();
@@ -150,3 +138,51 @@ public class TnpscTestcase
     }
 }
 
+//WebElement class
+
+package Testcases;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+
+public class webelementPrint
+{
+
+    public static WebDriver driver;
+    webelementPrint(WebDriver driver)
+    {
+        this.driver=driver;
+    }
+    static void elementPrint() throws InterruptedException {
+
+        System.out.println(driver);
+
+        List<WebElement> list = driver.findElements(By.className("notice"));
+        System.out.println(list.size());
+        for (WebElement webElement : list) {
+            String name = webElement.getText();
+            System.out.println(name);
+        }
+    }
+}
+
+//Main-execute
+
+package Testcases;
+
+import org.openqa.selenium.WebDriver;
+
+public class main_Execute {
+        public static void main(String []args) throws InterruptedException {
+
+        WebDriver driver1=InitiationClass.run();
+        webelementPrint mainexe=new webelementPrint(driver1);
+        mainexe.elementPrint();
+        TnpscTestcase tnpscTestcase=new TnpscTestcase(driver1);
+        tnpscTestcase.excecute();
+        driver1.quit();
+    }
+}
